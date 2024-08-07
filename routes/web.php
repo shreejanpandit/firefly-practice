@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [MovieController::class, 'index']);
-Route::get('/movies', [MovieController::class, 'create']);
+Route::get('/movies', [MovieController::class, 'create'])->name('movies.create');
 Route::post('/movies', [MovieController::class, 'store']);
-Route::get('/movies/{movie}/edit', [MovieController::class, 'edit']);
+Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
 Route::patch('/movies', [MovieController::class, 'update']);
-Route::delete('/movies/{movie}', [MovieController::class, 'destroy']);
+Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
+use App\Models\MovieModel;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -11,7 +13,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::all();
+        // dd($movie->first()->name);
+        return view('home', ["movies" => $movies]);
     }
 
     /**
