@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
+            $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
+            $table->string('prescribed_medicine')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }
