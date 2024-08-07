@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('contact', 60);
             $table->date('dob');
             $table->integer('age');
-            $table->string('email', 70);
+            $table->string('email', 70)->unique();
             $table->string('password', 255);
             $table->string('photo')->nullable();
             $table->enum('gender', ['male', 'female', 'other']);
