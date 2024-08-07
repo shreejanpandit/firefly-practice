@@ -23,7 +23,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        return view('movies.create');
     }
 
     /**
@@ -31,7 +31,15 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        // dd($request['name']);
+        Movie::create([
+            'name' => $request['name']
+        ]);
+        return redirect()->route('movies.index');
     }
 
     /**
