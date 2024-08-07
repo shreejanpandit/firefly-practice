@@ -39,7 +39,7 @@ class MovieController extends Controller
         Movie::create([
             'name' => $request['name']
         ]);
-        return redirect()->route('movies.index');
+        return redirect()->route('movies.index')->with('success', 'Movie added successfully!');
     }
 
     /**
@@ -69,8 +69,9 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully!');
     }
 }
