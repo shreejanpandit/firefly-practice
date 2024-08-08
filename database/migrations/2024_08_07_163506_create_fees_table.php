@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->decimal('amount');
             $table->enum('payment_method', ['esewa', 'cash', 'khalti', 'monile_banking', 'stripe']);
-            $table->string('discount');
             $table->timestamps();
         });
     }

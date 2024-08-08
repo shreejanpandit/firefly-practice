@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -12,7 +14,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        $patients = Patient::all();
+        return view('patient.index', ['patients' => $patients]);
     }
 
     /**
@@ -20,7 +23,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
+        return view('patient.create');
     }
 
     /**
@@ -28,8 +31,38 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $patient_validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:patients,email',
+            'contact' => 'required|string|max:15',
+            'gender' => 'required|in:male,female',
+            'dob' => 'date|before:today',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        // dd($request->image);
+        $name = $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('uploads.patient'), $name);
+
+        // Assuming $request->dob is in 'YYYY-MM-DD' format
+        $dob = $request->dob;
+
+        // Create DateTime objects for DOB and the current date
+        $dobDateTime = new DateTime($dob);
+        $currentDateTime = new DateTime();
+
+        // Calculate the age
+        $age = $currentDateTime->diff($dobDateTime)->y;
+
+        // Insert the age into the $patient_validate array
+        $patient_validate["age"] = $age;
+
+        $patient_validate['image'] = $name;
+        Patient::create($patient_validate);
+
+        return redirect()->route('patient.index');
     }
+
+
 
     /**
      * Display the specified resource.

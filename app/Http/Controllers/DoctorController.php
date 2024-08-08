@@ -12,7 +12,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        $doctors = Doctor::all();
+        return view('doctor.index', ['doctors' => $doctors]);
     }
 
     /**
@@ -20,15 +21,30 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('doctor.create');
     }
 
     /**
-     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $doctor_validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:patients,email',
+            'contact' => 'required|string|max:15',
+            'shift' => 'required|in:day,morning,evening,night',
+            'experience' => 'required|integer|max:50',
+            'expertise' => 'required|string|max:250',
+            'qualification' => 'required|string|max:250',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $name = $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('uploads_doctor'), $name);
+        $doctor_validate['image'] = $name;
+
+        Doctor::create($doctor_validate);
+        return redirect()->route('doctor.index');
     }
 
     /**
@@ -36,7 +52,7 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        //
+        return view('doctor.show');
     }
 
     /**
