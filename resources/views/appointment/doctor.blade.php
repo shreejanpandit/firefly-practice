@@ -30,7 +30,16 @@
                         <div class="bg-gray-100 p-4 mb-4 rounded-lg shadow-md ">
                             <div class="flex items-center justify-between mb-4 ">
                                 <h2 class="text-lg font-semibold">Appointment #{{ $loop->iteration }}</h2>
-                                <span class="text-sm text-gray-500">{{ $appointment->status }}</span>
+                                @if ($appointment->status === 'active')
+                                    <span
+                                        class="text-sm text-green-500 bg-green-100 rounded-full">{{ $appointment->status }}</span>
+                                @elseif ($appointment->status === 'pending')
+                                    <span
+                                        class=" p-1 text-sm text-blue-500 bg-blue-100 rounded-full">{{ $appointment->status }}</span>
+                                @else
+                                    <span
+                                        class=" p-1 text-sm text-red-500 bg-red-100 rounded-full">{{ $appointment->status }}</span>
+                                @endif
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>

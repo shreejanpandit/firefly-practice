@@ -18,14 +18,14 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('patient.index')">
+                    <x-nav-link :href="route('patient.index')" :active="request()->routeIs('patient.index')">
                         Patient
                     </x-nav-link>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('doctor.index')">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
+                    <x-nav-link :href="route('doctor.index')" :active="request()->routeIs('doctor.index')">
                         Doctor
                     </x-nav-link>
                 </div>
