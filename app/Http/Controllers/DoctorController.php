@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,9 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('doctor.create');
+        $departments = Department::all();
+        // dd($departments);
+        return view('doctor.create', ['departments' => $departments]);
     }
 
     /**
@@ -37,7 +40,8 @@ class DoctorController extends Controller
             'experience' => 'required|integer|max:50',
             'expertise' => 'required|string|max:250',
             'qualification' => 'required|string|max:250',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'department_id' => 'required|exists:departments,id',
         ]);
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('uploads_doctor'), $name);

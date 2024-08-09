@@ -9,7 +9,6 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight inline-block">
                 Patient Information
             </h2>
-            <a href="{{ route('appointment.index') }}" style="color:blue"> Add Appointment</a>
             <a href="{{ route('patient.create') }}" style="color:blue"> Create Patient</a>
         </div>
     </x-slot>
@@ -86,7 +85,7 @@
                                         {{ $patient->email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        <img src="{{ asset('uploads/' . $patient->image) }}" alt="Profile Image"
+                                        <img src="{{ asset('uploads_patient/' . $patient->image) }}" alt="Profile Image"
                                             class="w-16 h-16 object-cover">
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">

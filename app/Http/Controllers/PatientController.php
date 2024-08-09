@@ -41,7 +41,7 @@ class PatientController extends Controller
         ]);
         // dd($request->image);
         $name = $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('uploads.patient'), $name);
+        $request->file('image')->move(public_path('uploads_patient'), $name);
 
         // Assuming $request->dob is in 'YYYY-MM-DD' format
         $dob = $request->dob;

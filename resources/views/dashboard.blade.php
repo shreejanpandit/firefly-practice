@@ -8,6 +8,19 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+
+    </x-slot>
+
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight inline-block">
+                Dashboard
+            </h2>
+            <a href="{{ route('appointment.create') }}" style="color:blue"> Add Appointment</a>
+            <a href="{{ route('appointment.doctor') }}" style="color:blue"> View doctors Appointment</a>
+            <a href="{{ route('appointment.create') }}" style="color:blue"> View patients Appointment</a>
+
+        </div>
     </x-slot>
 
     <div class="py-12">

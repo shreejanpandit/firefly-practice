@@ -4,6 +4,7 @@
             Patient
         </h2>
     </x-slot>
+
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight inline-block">
@@ -38,8 +39,6 @@
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
-
-
                         <!-- Contact -->
                         <div class="mt-4">
                             <x-input-label for="contact" value="Contact" />
@@ -48,12 +47,11 @@
                             <x-input-error :messages="$errors->get('contact')" class="mt-2" />
                         </div>
 
-
-                        <!-- Shift [day/morning/evening/night] -->
+                        <!-- Shift -->
                         <div class="mt-4">
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift" class="block mt-1 w-full" required>
-                                <option value="patient" {{ old('shift', 'morning') === 'morning' ? 'selected' : '' }}>
+                                <option value="morning" {{ old('shift') === 'morning' ? 'selected' : '' }}>
                                     Morning
                                 </option>
                                 <option value="day" {{ old('shift') === 'day' ? 'selected' : '' }}>
@@ -69,6 +67,21 @@
                             <x-input-error :messages="$errors->get('shift')" class="mt-2" />
                         </div>
 
+
+                        <!-- Department -->
+                        <div class="mt-4">
+                            <x-input-label for="department_id" :value="__('Department')" />
+                            <select id="department_id" name="department_id" class="block mt-1 w-full" required>
+                                <option value="">Select Department</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}"
+                                        {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                        {{ $department->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
+                        </div>
 
                         <!-- Qualification -->
                         <div class="mt-4">
@@ -98,12 +111,9 @@
                         <div class="mt-4">
                             <x-input-label for="image" value="Profile Image" />
                             <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" />
-                            <!--    <x-input-error :messages="$errors->get('contact')" class="mt-2" /> -->
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-
-
                             <x-primary-button class="ms-4">
                                 Add Doctor
                             </x-primary-button>
