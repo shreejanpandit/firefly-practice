@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Models\User;
 use DateTime;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
@@ -39,6 +41,8 @@ class PatientController extends Controller
             'dob' => 'date|before:today',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        unset($patient_validate["email"]);
         // dd($request->image);
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('uploads_patient'), $name);
@@ -57,6 +61,15 @@ class PatientController extends Controller
         $patient_validate["age"] = $age;
 
         $patient_validate['image'] = $name;
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'patient',
+            'password' => Hash::make('user1234'),
+        ]);
+
+        event(new Registered($user));
+        $patient_validate["user_id"] = $user->id;
         Patient::create($patient_validate);
 
         return redirect()->route('patient.index');

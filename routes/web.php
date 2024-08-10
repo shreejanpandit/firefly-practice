@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PatientController;
@@ -27,9 +28,7 @@ Route::get('/doctor/create', [DoctorController::class, 'create'])->name('doctor.
 Route::post('/doctor', [DoctorController::class, 'store'])->name('doctor.store');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard/admin',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

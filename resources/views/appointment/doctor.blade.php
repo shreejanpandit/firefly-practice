@@ -32,13 +32,13 @@
                                 <h2 class="text-lg font-semibold">Appointment #{{ $loop->iteration }}</h2>
                                 @if ($appointment->status === 'active')
                                     <span
-                                        class="text-sm text-green-500 bg-green-100 rounded-full">{{ $appointment->status }}</span>
+                                        class="px-3 py-1 text-sm text-green-500 bg-green-100 rounded-full">{{ $appointment->status }}</span>
                                 @elseif ($appointment->status === 'pending')
                                     <span
-                                        class=" p-1 text-sm text-blue-500 bg-blue-100 rounded-full">{{ $appointment->status }}</span>
+                                        class=" px-3 py-1 text-sm text-blue-500 bg-blue-100 rounded-full">{{ $appointment->status }}</span>
                                 @else
                                     <span
-                                        class=" p-1 text-sm text-red-500 bg-red-100 rounded-full">{{ $appointment->status }}</span>
+                                        class=" px-`3 py-1 text-sm text-red-500 bg-red-100 rounded-full">{{ $appointment->status }}</span>
                                 @endif
                             </div>
                             <div class="grid grid-cols-2 gap-4">
