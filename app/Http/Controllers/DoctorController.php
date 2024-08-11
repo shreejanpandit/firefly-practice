@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -55,10 +58,20 @@ class DoctorController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'department_id' => 'required|exists:departments,id',
         ]);
+        unset($doctor_validate["email"]);
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('uploads_doctor'), $name);
         $doctor_validate['image'] = $name;
 
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'doctor',
+            'password' => Hash::make('doctor1234'),
+        ]);
+
+        event(new Registered($user));
+        $doctor_validate["user_id"] = $user->id;
         Doctor::create($doctor_validate);
         return redirect()->route('doctor.index');
     }
