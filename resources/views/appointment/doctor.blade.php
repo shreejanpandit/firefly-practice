@@ -16,9 +16,10 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight inline-block">
                 Doctor's Appointment
             </h2>
-            <a href="{{ route('appointment.create') }}" style="color:blue"> Add Appointment</a>
-            <a href="{{ route('appointment.create') }}" style="color:blue"> View patients Appointment</a>
-
+            @if (Auth::user()->hasRole('admin'))
+                <a href="{{ route('appointment.create') }}" style="color:blue"> Add Appointment</a>
+                <a href="{{ route('appointment.create') }}" style="color:blue"> View patients Appointment</a>
+            @endif
         </div>
     </x-slot>
 
@@ -38,7 +39,7 @@
                                         class=" px-3 py-1 text-sm text-blue-500 bg-blue-100 rounded-full">{{ $appointment->status }}</span>
                                 @else
                                     <span
-                                        class=" px-`3 py-1 text-sm text-red-500 bg-red-100 rounded-full">{{ $appointment->status }}</span>
+                                        class=" px-3 py-1 text-sm text-red-500 bg-red-100 rounded-full">{{ $appointment->status }}</span>
                                 @endif
                             </div>
                             <div class="grid grid-cols-2 gap-4">

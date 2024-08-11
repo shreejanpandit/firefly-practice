@@ -9,6 +9,12 @@ class Appointment extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    // Define the attributes that should be cast to Carbon instances
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
