@@ -46,6 +46,17 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+
     public function patient()
     {
         return $this->hasOne(Patient::class);

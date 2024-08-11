@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
@@ -28,12 +29,19 @@ Route::get('/doctor/create', [DoctorController::class, 'create'])->name('doctor.
 Route::post('/doctor', [DoctorController::class, 'store'])->name('doctor.store');
 
 
-Route::get('/dashboard/admin',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard/admin', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard');
+    Route::get('/patient/dashboard', [PatientController::class, 'dashboard'])->name('patient.dashboard');
 });
 
 

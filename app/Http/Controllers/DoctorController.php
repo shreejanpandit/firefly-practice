@@ -27,6 +27,18 @@ class DoctorController extends Controller
         return view('doctor.create', ['departments' => $departments]);
     }
 
+    public function dashboard()
+    {
+        // $patient = auth()->user()->patient; // Assuming each user is also a patient
+
+        // Pass relevant data to the view
+        return view('doctor.dashboard', [
+            // 'patient' => $patient,
+            // Add other patient-specific data if needed
+        ]);
+    }
+
+
     /**
      */
     public function store(Request $request)

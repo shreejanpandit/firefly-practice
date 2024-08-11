@@ -2,20 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
-use App\Models\Doctor;
-use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Patient;
+use App\Models\Doctor;
+use App\Models\Appointment;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $total_patient = Patient::count();
-        $total_doctor = Doctor::count();
-        $total_appointment = Appointment::count();
-        // dd($total_patient, $total_doctor, $total_appointment);
-        $data_count = ['total_patient' => $total_patient, 'total_doctor' => $total_doctor, 'total_appointment' => $total_appointment];
-        return view('dashboard', $data_count);
+        // Retrieve counts for dashboard statistics
+
+
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Debug output to verify the user role
+        // dd($user->role);
+        // dd($user->role, $user->hasRole('admin'), $user->hasRole('doctor'), $user->hasRole('patient'));
+        // Check user's role and redirect to the appropriate dashboard
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->hasRole('doctor')) {
+            return redirect()->route('doctor.dashboard');
+        } elseif ($user->hasRole('patient')) {
+            return redirect()->route('patient.dashboard');
+        }
+
+        return abort(403, 'Unauthorized');
     }
 }

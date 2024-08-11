@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\User;
 use DateTime;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
@@ -75,6 +77,23 @@ class PatientController extends Controller
         return redirect()->route('patient.index');
     }
 
+    public function dashboard()
+    {
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Fetch the patient record associated with the logged-in user
+        $patient = Patient::where('user_id', $user->id)->first();
+        // Fetch appointments related to this patient
+        $appointments = Appointment::where('patient_id', $patient->id)->get();
+
+        // Pass relevant data to the view
+        return view('patient.dashboard', [
+            'patients' => $patient,
+            'appointments' => $appointments
+            // Add other patient-specific data if needed
+        ]);
+    }
 
 
     /**
