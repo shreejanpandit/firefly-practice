@@ -95,6 +95,7 @@ class DoctorController extends Controller
         $request->file('image')->move(public_path('uploads_doctor'), $name);
         $doctor_validate['image'] = $name;
 
+        //user created as role doctor
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -104,6 +105,8 @@ class DoctorController extends Controller
 
         event(new Registered($user));
         $doctor_validate["user_id"] = $user->id;
+
+        //doctor createdd with user id
         Doctor::create($doctor_validate);
         return redirect()->route('doctor.index');
     }

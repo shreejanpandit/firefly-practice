@@ -63,6 +63,8 @@ class PatientController extends Controller
         $patient_validate["age"] = $age;
 
         $patient_validate['image'] = $name;
+
+        //create user as role patient
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -72,6 +74,8 @@ class PatientController extends Controller
 
         event(new Registered($user));
         $patient_validate["user_id"] = $user->id;
+
+        //create patient associating with user
         Patient::create($patient_validate);
 
         return redirect()->route('patient.index');
@@ -91,7 +95,6 @@ class PatientController extends Controller
         return view('patient.dashboard', [
             'patients' => $patient,
             'appointments' => $appointments
-            // Add other patient-specific data if needed
         ]);
     }
 
