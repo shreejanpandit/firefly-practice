@@ -10,10 +10,12 @@ use App\Http\Controllers\ResheduleController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
+//try to use resource route for doctor patient and admin
+
 Route::get('/', function () {
     return view('welcome');
 });
-
+  
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -21,7 +23,7 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard/admin', [DashboardController::class, 'dashboardAdmin'])->name('admin.dashboard');
+    Route::get('/dashboard/admin', [DashboardController::class, 'dashboardAdmin'])->name('admin.dashboard'); 
     Route::get('/patients/index', [PatientController::class, 'index'])->name('patient.index');
     Route::get('/patients/{patient}', [PatientController::class, 'edit'])->name('patient.edit');
     Route::delete('patients/{patient}', [PatientController::class, 'destroy'])->name('admin.patient.delete');
@@ -32,7 +34,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::patch('admin/doctor/{doctor}', [AdminController::class, 'adminDoctorUpdate'])->name('admin.doctor.update');
     Route::delete('doctors/{doctor}', [DoctorController::class, 'destroy'])->name('admin.doctor.delete');
 
-    Route::get('/appointments/index', [AppointmentController::class, 'index'])->name('appointment.index');
+    Route::get('/appointments/index', [AppointmentController::class, 'index'])->name('appointment.index');  
 });
 
 Route::middleware(['auth', 'role:patient'])->group(function () {
