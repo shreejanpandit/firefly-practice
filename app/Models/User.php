@@ -35,7 +35,8 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        // dd($role);
+        // dd($role);   //you can reomve this kind of code 
+        
         return $this->role === $role;
     }
     /**
