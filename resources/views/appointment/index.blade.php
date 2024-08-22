@@ -68,7 +68,7 @@
                                         {{ $appointment->doctor->user->name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        {{ \Carbon\Carbon::parse($appointment->date)->format('d/m/Y') }}
+                                        {{ \Carbon\Carbon::parse($appointment->date)->format('d/m/Y') }} //do not use these helper function in blade file write in respective model if possible
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                         {{ $appointment->time }}
